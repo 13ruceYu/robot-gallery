@@ -11,6 +11,10 @@
   margin-bottom: 24px;
 }
 
+h1 {
+  font-family: 'Slidefu';
+}
+
 .appLogo {
   height: 10vmin;
   pointer-events: none;
