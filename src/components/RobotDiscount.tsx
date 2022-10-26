@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styles from './Robot.module.css';
-import { appContext, appSetStateContext } from '../AppState'
+import { appContext } from '../AppState'
+import { useAddToCart } from './AddToCart'
 
 interface RobotDiscountProps {
   id: number,
@@ -11,19 +12,7 @@ interface RobotDiscountProps {
 const RobotDiscount: React.FC<RobotDiscountProps> = (props) => {
   const { id, name, email } = props;
   const value = useContext(appContext)
-  const setState = useContext(appSetStateContext)
-  const addToCart = () => {
-    if (setState) {
-      setState(state => {
-        return {
-          ...state,
-          shoppingCart: {
-            items: [...state.shoppingCart.items, { id, name }]
-          }
-        }
-      })
-    }
-  }
+  const addToCart = useAddToCart()
   return (
     <div className={styles.cardContainer}>
       <img src={`https://robohash.org/${id}`} alt="robotDiscount" />
@@ -31,7 +20,7 @@ const RobotDiscount: React.FC<RobotDiscountProps> = (props) => {
       <h2>{name}</h2>
       <p>{email}</p>
       <p>作者：{value.username}</p>
-      <button onClick={addToCart}>add to cart</button>
+      <button onClick={() => addToCart(id, name)}>add to cart</button>
     </div>
   )
 }
